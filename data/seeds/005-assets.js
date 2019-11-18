@@ -10,7 +10,7 @@ exports.seed = function (knex) {
           name: 'chezdsSSasdasdeto',
           barcode: 6416,
           check_in_status: 0,
-          img_id: "2",
+          pic_img_id: 1,
           user_id: 1,
         }
       ]);

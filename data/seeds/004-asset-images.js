@@ -4,21 +4,16 @@ exports.seed = function (knex) {
     .then(function () {
       // Inserts seed entries
       return knex('asset_images').insert([
+
         {
-          asset_img_id: 1,
-          location: 'cheeto.com',
+          id: 1,
+          asset_img_id: 951472,
+          location: 'asdasdasd.com',
         },
         {
-          asset_img_id: 2,
-          location: 'dorito.com',
-        },
-        {
-          asset_img_id: 3,
-          location: 'pringle.com',
-        },
-        {
-          asset_img_id: 63513,
-          location: 'asdasdasdada.com',
+          id: 2,
+          asset_img_id: 951472,
+          location: 'asdasdasd.com',
         }
       ]);
     });

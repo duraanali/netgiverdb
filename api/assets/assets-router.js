@@ -75,9 +75,9 @@ server.get("/:id", (req, res) => {
 });
 
 server.post("/", (req, res) => {
-  const { name, barcode, img_id } = req.body;
+  const { name, barcode, pic_img_id } = req.body;
 
-  if (name && barcode && img_id) {
+  if (name && barcode && pic_img_id) {
     console.log("req.body", req.body)
     assetsModel.postAsset(req.body)
       .then(asset => {
@@ -89,7 +89,7 @@ server.post("/", (req, res) => {
         res.status(500).json({ error: 'Could not post asset' });
       });
   } else {
-    res.status(400).json({ message: 'Must include name, barcode, and asset_img_id' });
+    res.status(400).json({ message: 'Must include name, barcode, and pic_img_id' });
   }
 });
 
