@@ -13,7 +13,7 @@ const nexmo = new Nexmo({
 });
 
 server.use(cors());
-
+const smsModel = require("../smsAuth/authSMS-model.js");
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.get("/", (req, res) => {
@@ -23,13 +23,36 @@ server.post("/users", (req, res) => {
     return res.send("POST HTTP method on user resource");
 });
 server.post("/send_verify_code", (req, res) => {
+    const { phone_number } = req.body;
+
+    if (phone_number) {
+        smsModel.insert({ phone_number })
+            .then(user => {
+                token = generateToken(user);
+                res.status(201).json({ user, token });
+            })
+            .catch(err => {
+                console.log(err);
+                res
+                    .status(500)
+                    .json({ error: "Could not register user, try again", err });
+            });
+    } else {
+        res
+            .status(400)
+            .json({ message: "Must provide Phone Number" });
+    }
+
+
     let phone_number = req.body.callingCode + req.body.phoneNumber;
     console.log("27", phone_number);
+
     nexmo.verify.request(
         {
             number: phone_number,
             brand: "Chat app"
         },
+
         (err, result) => {
             console.log("34", err, result);
             if (err) {
@@ -41,6 +64,8 @@ server.post("/send_verify_code", (req, res) => {
             }
         }
     );
+
+
 });
 server.post("/inbound-message", (req, res) => {
     console.log("inbound-message", req.body);
