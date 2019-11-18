@@ -25,27 +25,7 @@ server.post("/users", (req, res) => {
     return res.send("POST HTTP method on user resource");
 });
 server.post("/send_verify_code", (req, res) => {
-    var { phone_number } = req.body;
-
-    if (phone_number) {
-        smsModel.insert({ phone_number })
-            .then(auth => {
-                token = generateToken(auth);
-                res.status(201).json({ auth, token });
-            })
-            .catch(err => {
-                console.log(err);
-                res
-                    .status(500)
-                    .json({ error: "Could not register user, try again", err });
-            });
-    } else {
-        res
-            .status(400)
-            .json({ message: "Must provide Phone Number" });
-    }
-
-
+  
     var phone_number = req.body.callingCode + req.body.phoneNumber;
     console.log("27", phone_number);
 
