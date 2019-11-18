@@ -6,10 +6,6 @@ exports.up = function (knex) {
       tbl.string("email").notNullable().unique();
       tbl.string("password").notNullable();
     })
-    .createTable("authSMS", tbl => {
-      tbl.increments("id");
-      tbl.string('phone_number').unique().notNullable();
-    })
     .createTable("locations", tbl => {
       tbl.increments("id");
       tbl.string("name").notNullable().unique();
@@ -21,7 +17,11 @@ exports.up = function (knex) {
       tbl.string('location').notNullable()
 
     })
+    .createTable("authSMS", tbl => {
+      tbl.increments("id");
+      tbl.integer('phone_number').unique().notNullable();
 
+    })
 
     .createTable("assets", tbl => {
       tbl.increments("id");

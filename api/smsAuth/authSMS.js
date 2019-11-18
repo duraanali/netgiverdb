@@ -4,6 +4,8 @@ const server = express();
 const Nexmo = require("nexmo");
 const cors = require("cors");
 const path = require("path");
+const jwt = require("jsonwebtoken");
+const secrets = require("../../config/secrets.js");
 // path.join(__dirname, "private.key");
 const nexmo = new Nexmo({
     apiKey: "ea216f50",
@@ -27,9 +29,9 @@ server.post("/send_verify_code", (req, res) => {
 
     if (phone_number) {
         smsModel.insert({ phone_number })
-            .then(user => {
-                token = generateToken(user);
-                res.status(201).json({ user, token });
+            .then(auth => {
+                token = generateToken(auth);
+                res.status(201).json({ auth, token });
             })
             .catch(err => {
                 console.log(err);
@@ -67,6 +69,18 @@ server.post("/send_verify_code", (req, res) => {
 
 
 });
+
+function generateToken(auth) {
+    const payload = {
+        phone_number: auth.phone_number
+    };
+    const options = {
+        expiresIn: "30d"
+    };
+    return jwt.sign(payload, secrets.environment, options);
+}
+
+
 server.post("/inbound-message", (req, res) => {
     console.log("inbound-message", req.body);
     res.status(200).end();
