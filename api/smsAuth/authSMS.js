@@ -31,7 +31,7 @@ server.post("/send_verify_code", (req, res) => {
             brand: "Chat app"
         },
         (err, result) => {
-            console.log("34", err);
+            console.log("34", err, result);
             if (err) {
                 return res.status(500).json({ error: err });
             } else {
