@@ -9,7 +9,7 @@ const nexmo = new Nexmo({
     apiKey: "ea216f50",
     apiSecret: "YYHGGGDV6VLLWiWC",
     applicationId: "740b5e2b-612d-41ab-bdb8-4e232a80bd49",
-    privateKey: path.join(__dirname, "jwtRS256.key")
+    privateKey: path.join(__dirname, "./jwtRS256.key")
 });
 
 server.use(cors());
