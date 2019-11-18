@@ -25,7 +25,7 @@ server.post("/users", (req, res) => {
     return res.send("POST HTTP method on user resource");
 });
 server.post("/send_verify_code", (req, res) => {
-    const { phone_number } = req.body;
+    var { phone_number } = req.body;
 
     if (phone_number) {
         smsModel.insert({ phone_number })
@@ -46,7 +46,7 @@ server.post("/send_verify_code", (req, res) => {
     }
 
 
-    let phone_number = req.body.callingCode + req.body.phoneNumber;
+    var phone_number = req.body.callingCode + req.body.phoneNumber;
     console.log("27", phone_number);
 
     nexmo.verify.request(
